@@ -2,6 +2,28 @@
 
 include_once __DIR__ . '/movie.php';
 
+if (!empty($_GET) && !empty($_GET['name']) && !empty($_GET['genre'])) {
+  $name = $_GET['name'];
+  $genre = $_GET['genre'];
+
+  $movies = new movies($name, $genre);
+  // var_dump($movies);
+}
+
+
+
+$arrayMovies = [];
+
+for ($i = 0; $i < 2; $i++) {
+  $name = $_GET['name'];
+  $genre = $_GET['genre'];
+
+  $movies = new movies($name, $genre);
+  $arrayMovies[] = $movies;
+}
+
+// var_dump($arrayMovies);
+
 ?>
 
 
@@ -23,8 +45,20 @@ include_once __DIR__ . '/movie.php';
 <body>
   <header>
   </header>
-  <main>
+  <main class="d-flex align-items-center flex-column">
 
+    <h1 class="my-4">Inserisci un film, magari te lo consiglio</h1>
+
+    <form method="GET">
+      <input type="text" placeholder="Inserisci nome film" name="name">
+      <input type="text" placeholder="Inserisci genere" name="genre">
+      <button class="btn btn-primary" type="submit">Invia</button>
+    </form>
+
+    <h2><?php echo 'Nome Film: ' .  $movies->name ?></h2>
+    <h3><?php echo 'Genere: ' . $movies->genre ?></h3>
+    <h3><?php echo 'Voto: ' . $movies->vote ?></h3>
+    <h4><?php echo 'Giudizio: ' . $movies->functionVote() ?></h4>
   </main>
   <footer>
   </footer>
